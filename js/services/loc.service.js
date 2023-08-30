@@ -8,7 +8,11 @@ const STORAGE_PLACE_KEY = 'placesDB'
 
 
 export const locService = {
-    getLocs
+    getLocs,
+    getLocById,
+    addPlace,
+    createPlace,
+    removeLoc
 }
 const locs = [
     { id: 2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },

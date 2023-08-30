@@ -9,7 +9,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-window.onGoToLocation =onGoToLocation
+// window.onDelLoc = onDelLoc
 
 
 function onInit() {
@@ -59,25 +59,26 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo(lan = 35.6895, lag = 139.6917) {
-    console.log('lan, lag', lan, lag)
+function onPanTo(lat = 35.6895, lng = 139.6917) {
+    console.log('lat, lng', lat, lng)
     console.log('Panning the Map')
-    mapService.panTo(lan, lag)
+    mapService.panTo(lat, lng)
 }
 
 function renderLocation(locations) {
     console.log('locations', locations)
 
     const elLocation = document.querySelector('.table-body')
+    console.log('elLocation', elLocation)
 
     const strHtml = locations.map((location) => {
-        const { id, name, lan, lag } = location
+        const { id, name, lat, lng } = location
         return `
         <tr>
         <td>${name}</td>
         <td>
-        <button class="btn-go" id="${id}" onclick="onGoToLocation(this)">Go</button>
-        <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
+        <button class="btn-go" onclick="onPanTo(${lat},${ lng})">Go</button>
+        <button class="btn-delete" value="${id}" onclick="onDelLoc(this)">Del</button>
         </td>
         </tr>
         `
@@ -86,23 +87,8 @@ function renderLocation(locations) {
     elLocation.innerHTML = strHtml.join('')
 }
 
-function onGoToLocation(ev) {
-    console.log('ev', ev)
-    const location = getLocationById(ev.id)
-    const { lan, lag } = location
-    onPanTo(lan, lag)
+function onDelLoc(ev) {
+    const locId = ev.id
+    locService.removeLoc(locId)
     renderLocation()
-}
-
-function onDelLocation(ev) {
-    const location = getLocationById(ev.id)
-    const { name } = location
-    onDelLocation(name)
-    renderLocation()
-}
-
-function setPlaceOnMap(place) {
-    console.log('place:', place)
-    gMap.setCenter({ lat: place.lat, lng: place.lng })
-    gMap.setZoom(place.zoom)
 }
