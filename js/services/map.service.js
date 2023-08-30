@@ -1,12 +1,11 @@
 import { api } from "./secret.js"
-import{locService}from "./loc.service.js"
-import{appController} from "../app.controller.js"
+import { locService } from "./loc.service.js"
+import { appController } from "../app.controller.js"
 
 export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getGmap
 }
 
 
@@ -47,18 +46,13 @@ function initMap() {
                 const name = prompt('Place name?', 'Place 1')
                 const lat = ev.latLng.lat()
                 const lng = ev.latLng.lng()
-                console.log('lat,lng,name', lat,lng,name)
-                locService.addPlace(name,lat, lng )
-                .then(appController.renderLocation)
-                
+                console.log('lat,lng,name', lat, lng, name)
+                locService.addPlace(name, lat, lng)
+                appController.renderLocation
+
             })
 
         })
-}
-
-
-function getGmap() {
-    return gMap
 }
 
 function addMarker(loc) {
@@ -67,7 +61,7 @@ function addMarker(loc) {
         map: gMap,
         title: 'Hello World!'
     })
-   
+
 }
 
 function panTo(lat, lng) {
