@@ -11,7 +11,6 @@ export const mapService = {
 var gMap
 
 function initMap() {
-    console.log('InitMap')
     return _connectGoogleApi()
         .then(() => {
             console.log('google available')

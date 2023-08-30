@@ -6,6 +6,9 @@ import { utilService } from "./util.service.js"
 
 const STORAGE_PLACE_KEY = 'placesDB'
 
+const locsCache = utilService.load(STORAGE_PLACE_KEY)||[]
+
+
 
 export const locService = {
     getLocs,
@@ -20,27 +23,34 @@ const locs = [
 ]
 
 function getLocs() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(locs)
-        }, 2000)
-    })
+    if (locsCache) {
+        console.log('from cache')
+        console.log('locs:', locs)
+        return Promise.resolve(locsCache)
+    } else {
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(locs)
+                console.log('locs:', locs)
+            }, 2000)
+        })
+    }
+
 }
-function createPlace(lat, lng, name, zoom = 15) {
+function createPlace(id = utilService.id(), name, lat, lng, zoom = 15) {
     return {
-        id: utilService.id(),
+        id,
         lat,
         lng,
         name,
         zoom
     }
 }
-addPlace(3, 58, 59, 'ramle', 15)
+addPlace(3, 'ramle', 58, 59, 15)
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
     savePlaceToStorage()
-    console.log('loc:', locs)
     return Promise.resolve(loc)
 }
 function getLocById(locId) {            // Read   
