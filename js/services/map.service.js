@@ -1,9 +1,12 @@
 import { api } from "./secret.js"
+import{locService}from "./loc.service.js"
+import{appController} from "../app.controller.js"
 
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getGmap
 }
 
 
@@ -39,10 +42,24 @@ function initMap() {
                     JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
                 )
                 infoWindow.open(gMap);
-            });
+            })
+            gMap.addListener('click', ev => {
+                const name = prompt('Place name?', 'Place 1')
+                const lat = ev.latLng.lat()
+                const lng = ev.latLng.lng()
+                console.log('lat,lng,name', lat,lng,name)
+                locService.addPlace(name,lat, lng )
+                .then(appController.renderLocation)
+                
+            })
+
         })
 }
 
+
+function getGmap() {
+    return gMap
+}
 
 function addMarker(loc) {
     return new google.maps.Marker({
@@ -50,7 +67,7 @@ function addMarker(loc) {
         map: gMap,
         title: 'Hello World!'
     })
-    return marker
+   
 }
 
 function panTo(lat, lng) {

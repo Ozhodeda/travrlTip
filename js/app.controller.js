@@ -4,6 +4,10 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
+export const appController = { 
+    renderLocation
+}
+
 window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
@@ -17,11 +21,12 @@ function onInit() {
         .then(() => {
             console.log('Map is ready')
             //map addListener lat llng -> addLoc 
+            
 
 
         })
         .catch(() => console.log('Error: cannot init map'))
-        .then(renderLocation)
+       
 
     locService.getLocs()
         .then(renderLocation)
