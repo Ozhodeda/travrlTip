@@ -7,10 +7,14 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 
+
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
+            //map addListener lat llng -> addLoc 
+
+
         })
         .catch(() => console.log('Error: cannot init map'))
 }
