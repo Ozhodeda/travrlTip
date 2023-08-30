@@ -9,6 +9,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+// window.onDelLoc = onDelLoc
 
 
 function onInit() {
@@ -21,6 +22,10 @@ function onInit() {
         })
         .catch(() => console.log('Error: cannot init map'))
     renderLocation()
+
+    locService.getLocs()
+        .then(renderLocation)
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -56,43 +61,41 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
+<<<<<<< HEAD
 
 function onPanTo(lan = 35.6895, lag = 139.6917) {
+=======
+function onPanTo(lat = 35.6895, lng = 139.6917) {
+    console.log('lat, lng', lat, lng)
+>>>>>>> 45cb15fe72b74ce85f8a9872f9b4d8cc4d71f01c
     console.log('Panning the Map')
-    mapService.panTo(lan, lag)
+    mapService.panTo(lat, lng)
 }
 
-function renderLocation() {
-    const locations = locService.getLocs
+function renderLocation(locations) {
+    console.log('locations', locations)
 
-    const elLocation = $('.table-locations')
+    const elLocation = document.querySelector('.table-body')
+    console.log('elLocation', elLocation)
 
-    const strHtml = locations.map(location => {
-        const { name, lan, lag, id } = location
-            `
-    <tr>
-    <td>${name}</td>
-    <td>
-    <button class="btn-go" value="${lan, lag}" onclick="onPanTo(value.lan, value.lag)">Go</button>
-    <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
-    </td>
-    </th>
-    `
+    const strHtml = locations.map((location) => {
+        const { id, name, lat, lng } = location
+        return `
+        <tr>
+        <td>${name}</td>
+        <td>
+        <button class="btn-go" onclick="onPanTo(${lat},${ lng})">Go</button>
+        <button class="btn-delete" value="${id}" onclick="onDelLoc(this)">Del</button>
+        </td>
+        </tr>
+        `
+
     })
     elLocation.innerHTML = strHtml.join('')
 }
 
-// function onGoTtLocation(ev) {
-//     console.log('ev', ev)
-//     const location = getLocationById(ev.id)
-//     const { lan, lag } = location
-//     goToLocation(location)
-//     renderLocation()
-// }
-
-function onDelLocation(ev) {
-    const location = getLocationById(ev.id)
-    const { name } = location
-    onDelLocation(name)
+function onDelLoc(ev) {
+    const locId = ev.id
+    locService.removeLoc(locId)
     renderLocation()
 }
