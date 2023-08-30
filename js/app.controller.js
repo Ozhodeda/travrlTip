@@ -97,7 +97,6 @@ function renderLocation(locations) {
 }
 
 function onDelLoc(locId) {
-
     console.log('locId', locId)
     locService.removeLoc(locId)
         .then(renderLocation)
