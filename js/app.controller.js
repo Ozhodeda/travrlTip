@@ -1,6 +1,3 @@
-
-
-
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
@@ -15,22 +12,14 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onDelLoc = onDelLoc
 
-
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
-            //map addListener lat llng -> addLoc 
-            
-
-
         })
         .catch(() => console.log('Error: cannot init map'))
-       
-
     locService.getLocs()
         .then(renderLocation)
-
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -66,7 +55,6 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-
 
 function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('lat, lng', lat, lng)
