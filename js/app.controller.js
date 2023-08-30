@@ -11,6 +11,7 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onDelLoc = onDelLoc
+window.onSearch = onSearch
 
 function onInit() {
     mapService.initMap()
@@ -64,7 +65,7 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
 }
 
 function renderLocation(locations) {
-    console.log('locations', locations.length)
+    console.log('locations', locations)
     // if (locations.length)
 
     const elLocation = document.querySelector('.table-body')
@@ -86,9 +87,22 @@ function renderLocation(locations) {
     elLocation.innerHTML = strHtml.join('')
 }
 
-
 function onDelLoc(locId) {
     console.log('locId', locId)
     locService.removeLoc(locId)
         .then(renderLocation)
+}
+
+function onSearch(){
+    const elInput = document.getElementById('search-input')
+    const input = elInput.value
+    console.log('input', input)
+
+    mapService.getAddress(input)
+    .then(onPanTo)
+    
+
+
+  
+
 }

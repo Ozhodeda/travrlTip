@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="./css/main.css">
     <title>TravelTip</title>
 </head>
 <body class="main-layout">
@@ -23,7 +24,7 @@
         </p>
         
         <button onclick="onAddMarker()" class="btn-add-marker ">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos ">Get User Position</button>
+        <button onclick="onGetUserPos()" class="btn-user-pos ">Get My Position</button>
         <button onclick="onGetLocs()" class="btn-get-locs ">Get Locations</button>
         <button onclick="onPanTo()"class="btn-pan ">Pan Map to Tokyo</button>
 
@@ -52,7 +53,7 @@
     </section>
 
     
-   
+    <script src="lib/axios/axios.js"></script>
     <script src="lib/jquery/jquery.js"></script>
     <script src="lib/bootstrap/bootstrap.bundel.js"></script>
     <script type="module" src="js/app.controller.js"></script>
