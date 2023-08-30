@@ -43,22 +43,22 @@ function createPlace(name, lat, lng, zoom = 15) {
         zoom
     }
 }
-addPlace(3, 'ramle', 58, 59, 15)
 
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
     savePlaceToStorage()
     console.log('loc', loc)
-    return Promise.resolve(loc)
+    return Promise.resolve(locs)
 }
 function getLocById(locId) {            // Read   
     const loc = locs.find(loc => locId === locId.id)
     return Promise.resolve(loc)
 }
 function removeLoc(locId) {  ///delate
-    const loc = locs.find(loc => locId === loc.id)
-    locs.splice(loc, 1)
+    locId = locs.find(loc => locId === loc.id)
+    locs.splice(locId, 1)
+    console.log('locs', locs)
     savePlaceToStorage()
     return Promise.resolve(locs)
 }
