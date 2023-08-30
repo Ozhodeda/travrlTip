@@ -43,7 +43,6 @@ function createPlace(name, lat, lng, zoom = 15) {
         zoom
     }
 }
-addPlace(3, 'ramle', 58, 59, 15)
 
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
