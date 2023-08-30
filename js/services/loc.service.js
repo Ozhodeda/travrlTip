@@ -23,7 +23,7 @@ function getLocs() {
     })
 }
 function createPlace(lat, lng, name, zoom = 15) {
-    const place = {
+    return {
         id: utilService.id(),
         lat,
         lng,
@@ -31,15 +31,22 @@ function createPlace(lat, lng, name, zoom = 15) {
         zoom
     }
 }
+addPlace(3, 58, 59, 'ramle', 15)
 function addPlace(id, lat, lng, name, zoom) {
-    const loc = createPlace(id,lat, lng, name, zoom)
+    const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
     savePlaceToStorage()
+    console.log('loc:', locs)
     return Promise.resolve(loc)
 }
 function getLocById(locId) {            // Read   
     const loc = locs.find(loc => locId === locId.id)
     return Promise.resolve(loc)
+}
+function removeLoc(locId) {  ///delate
+    const loc = locs.find(loc => locId === locId.id)
+    locs.splice(locId, 1)
+    savePlaceToStorage()
 }
 
 function savePlaceToStorage() {
