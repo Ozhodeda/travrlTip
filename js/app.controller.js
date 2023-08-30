@@ -21,7 +21,7 @@ function onInit() {
 
         })
         .catch(() => console.log('Error: cannot init map'))
-    renderLocation()
+        .then(renderLocation)
 
     locService.getLocs()
         .then(renderLocation)
