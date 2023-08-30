@@ -15,10 +15,6 @@ const locs = [
     { id :1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
 ]
 
-
-createPlace()
-
-
 function getLocs() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
