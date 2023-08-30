@@ -47,6 +47,7 @@ function createPlace(id = utilService.id(), name, lat, lng, zoom = 15) {
     }
 }
 addPlace(3, 'ramle', 58, 59, 15)
+
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
