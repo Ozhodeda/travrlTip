@@ -62,6 +62,8 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
     onAddMarker(lat, lng )
+    const locs = locService.getLocation()
+    renderLocation(locs)
 }
 
 function renderLocation(locations) {
