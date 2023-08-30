@@ -11,6 +11,7 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onDelLoc = onDelLoc
+window.onSearch = onSearch
 
 function onInit() {
     mapService.initMap()
@@ -30,9 +31,9 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function onAddMarker(lat, lng ) {
     console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    mapService.addMarker({ lat, lng })
 }
 
 function onGetLocs() {
@@ -60,10 +61,15 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('lat, lng', lat, lng)
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
+    onAddMarker(lat, lng )
+    
+    const locs = locService.getLocation()
+
+    renderLocation(locs)
 }
 
 function renderLocation(locations) {
-    console.log('locations', locations.length)
+    console.log('locations', locations)
     // if (locations.length)
 
     const elLocation = document.querySelector('.table-body')
@@ -85,9 +91,22 @@ function renderLocation(locations) {
     elLocation.innerHTML = strHtml.join('')
 }
 
-
 function onDelLoc(locId) {
     console.log('locId', locId)
     locService.removeLoc(locId)
         .then(renderLocation)
+}
+
+function onSearch(){
+    const elInput = document.getElementById('search-input')
+    const input = elInput.value
+    console.log('input', input)
+
+    mapService.getAddress(input)
+    .then(onPanTo)
+    
+
+
+  
+
 }

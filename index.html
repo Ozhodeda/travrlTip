@@ -11,6 +11,11 @@
     
     <header class="main-Header">
         <h1>TravelTip Starter</h1>
+
+        <form id="search-form">
+            <input type="text" id="search-input" placeholder="Enter text to search">
+            <button type="button" id="search-button" onclick="onSearch()">Search</button>
+          </form>
         
         <p>You are at: <span class="user-pos"></span></p>
         <p>Locations: 
@@ -18,7 +23,7 @@
         </p>
         
         <button onclick="onAddMarker()" class="btn-add-marker ">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos ">Get User Position</button>
+        <button onclick="onGetUserPos()" class="btn-user-pos ">Get My Position</button>
         <button onclick="onGetLocs()" class="btn-get-locs ">Get Locations</button>
         <button onclick="onPanTo()"class="btn-pan ">Pan Map to Tokyo</button>
 
@@ -47,7 +52,7 @@
     </section>
 
     
-   
+    <script src="lib/axios/axios.js"></script>
     <script src="lib/jquery/jquery.js"></script>
     <script src="lib/bootstrap/bootstrap.bundel.js"></script>
     <script type="module" src="js/app.controller.js"></script>
