@@ -25,19 +25,19 @@ function initMap() {
             let infoWindow = new google.maps.InfoWindow({
                 content: "Click the map to get Lat/Lng!",
                 position: myLatlng,
-            });
-            infoWindow.open(gMap);
+            })
+            infoWindow.open(gMap)
             // Configure the click listener.
             gMap.addListener("click", (mapsMouseEvent) => {
                 // Close the current InfoWindow.
-                infoWindow.close();
+                infoWindow.close()
                 // Create a new InfoWindow.
                 infoWindow = new google.maps.InfoWindow({
                     position: mapsMouseEvent.latLng,
-                });
+                })
                 infoWindow.setContent(
                     JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
-                );
+                )
                 infoWindow.open(gMap);
             });
         })
