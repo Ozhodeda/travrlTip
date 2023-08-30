@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(155, 207, 225);
+}
+
+h1{
+    font-family:Rubik ;
+}
+
+button{
+    font-family: Quicksand-bold;
+    background-color: hwb(0 75% 24%);
+}
+
+button:hover{
+    background-color: rgb(255, 254, 254);
+}
