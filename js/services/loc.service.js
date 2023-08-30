@@ -1,3 +1,7 @@
+
+
+
+
 import { utilService } from "./util.service.js"
 
 const STORAGE_PLACE_KEY = 'placesDB'
@@ -16,17 +20,11 @@ const locs = [
 ]
 
 function getLocs() {
-    locs = utilService.load(STORAGE_PLACE_KEY)
-    if (!locs || !locs.length) {
-        locs = [
-            { id: 2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-            { id: 1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },]
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(locs)
-            }, 2000)
-        })
-    }
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(locs)
+        }, 2000)
+    })
 }
 function createPlace(lat, lng, name, zoom = 15) {
     return {
@@ -37,6 +35,7 @@ function createPlace(lat, lng, name, zoom = 15) {
         zoom
     }
 }
+addPlace(3, 58, 59, 'ramle', 15)
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
@@ -50,7 +49,7 @@ function getLocById(locId) {            // Read
 }
 function removeLoc(locId) {  ///delate
     const loc = locs.find(loc => locId === locId.id)
-    locs.splice(loc, 1)
+    locs.splice(locId, 1)
     savePlaceToStorage()
     return Promise.resolve(locs)
 }
