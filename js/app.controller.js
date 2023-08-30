@@ -63,7 +63,8 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
 }
 
 function renderLocation(locations) {
-    console.log('locations', locations)
+    console.log('locations', locations.length)
+    // if (locations.length)
 
     const elLocation = document.querySelector('.table-body')
     console.log('elLocation', elLocation)
@@ -83,6 +84,7 @@ function renderLocation(locations) {
     })
     elLocation.innerHTML = strHtml.join('')
 }
+
 
 function onDelLoc(locId) {
     console.log('locId', locId)
