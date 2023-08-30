@@ -61,13 +61,10 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-<<<<<<< HEAD
 
-function onPanTo(lan = 35.6895, lag = 139.6917) {
-=======
+
 function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('lat, lng', lat, lng)
->>>>>>> 45cb15fe72b74ce85f8a9872f9b4d8cc4d71f01c
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
 }

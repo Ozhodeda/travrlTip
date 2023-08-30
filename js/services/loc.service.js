@@ -8,11 +8,15 @@ const STORAGE_PLACE_KEY = 'placesDB'
 
 
 export const locService = {
-    getLocs
+    getLocs,
+    getLocById,
+    addPlace,
+    createPlace,
+    removeLoc
 }
 const locs = [
-    { id :2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-    { id :1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
+    { id: 2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
+    { id: 1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
 ]
 
 function getLocs() {
@@ -23,20 +27,34 @@ function getLocs() {
     })
 }
 function createPlace(lat, lng, name, zoom = 15) {
-    const place = {
+    return {
         id: utilService.id(),
         lat,
         lng,
         name,
         zoom
     }
-    locs.unshift(place)
-    savePlaceToStorage()
-    console.log('locs:', locs)
-    return Promise.resolve(place)
 }
+addPlace(3, 58, 59, 'ramle', 15)
+function addPlace(id, lat, lng, name, zoom) {
+    const loc = createPlace(id, lat, lng, name, zoom)
+    locs.unshift(loc)
+    savePlaceToStorage()
+    console.log('loc:', locs)
+    return Promise.resolve(loc)
+}
+function getLocById(locId) {            // Read   
+    const loc = locs.find(loc => locId === locId.id)
+    return Promise.resolve(loc)
+}
+function removeLoc(locId) {  ///delate
+    const loc = locs.find(loc => locId === locId.id)
+    locs.splice(locId, 1)
+    savePlaceToStorage()
+}
+
 function savePlaceToStorage() {
-    utilService.save(STORAGE_PLACE_KEY,locs)
+    utilService.save(STORAGE_PLACE_KEY, locs)
 }
 
 
