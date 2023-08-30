@@ -9,6 +9,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onGoToLocation =onGoToLocation
 
 
 function onInit() {
@@ -20,7 +21,10 @@ function onInit() {
 
         })
         .catch(() => console.log('Error: cannot init map'))
-        renderLocation()
+
+    locService.getLocs()
+        .then(renderLocation)
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -56,41 +60,49 @@ function onGetUserPos() {
         })
 }
 function onPanTo(lan = 35.6895, lag = 139.6917) {
+    console.log('lan, lag', lan, lag)
     console.log('Panning the Map')
     mapService.panTo(lan, lag)
 }
 
-function renderLocation() {
-    const locations = locService.getLocs
+function renderLocation(locations) {
+    console.log('locations', locations)
 
-    const elLocation = $('.table-locations')
+    const elLocation = document.querySelector('.table-body')
 
-    const strHtml = locations.map(location => {
-        const { name, lan, lag, id } = location
-            `
-    <tr>
-    <td>${name}</td>
-    <td>
-    <button class="btn-go" value="${lan, lag}" onclick="onPanTo(value.lan, value.lag)">Go</button>
-    <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
-    </td>
-    </th>
-    `
+    const strHtml = locations.map((location) => {
+        const { id, name, lan, lag } = location
+        return `
+        <tr>
+        <td>${name}</td>
+        <td>
+        <button class="btn-go" id="${id}" onclick="onGoToLocation(this)">Go</button>
+        <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
+        </td>
+        </tr>
+        `
+
     })
     elLocation.innerHTML = strHtml.join('')
 }
 
-// function onGoTtLocation(ev) {
-//     console.log('ev', ev)
-//     const location = getLocationById(ev.id)
-//     const { lan, lag } = location
-//     goToLocation(location)
-//     renderLocation()
-// }
+function onGoToLocation(ev) {
+    console.log('ev', ev)
+    const location = getLocationById(ev.id)
+    const { lan, lag } = location
+    onPanTo(lan, lag)
+    renderLocation()
+}
 
 function onDelLocation(ev) {
     const location = getLocationById(ev.id)
     const { name } = location
     onDelLocation(name)
     renderLocation()
+}
+
+function setPlaceOnMap(place) {
+    console.log('place:', place)
+    gMap.setCenter({ lat: place.lat, lng: place.lng })
+    gMap.setZoom(place.zoom)
 }
