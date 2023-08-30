@@ -10,10 +10,14 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 
+
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
+            //map addListener lat llng -> addLoc 
+
+
         })
         .catch(() => console.log('Error: cannot init map'))
 }
@@ -50,11 +54,42 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo() {
+function onPanTo(lan = 35.6895, lag = 139.6917) {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(lan, lag)
 }
 
-function renderLocation(){
-    
+function renderLocation() {
+    const locations = locService.getLocs
+
+    const elLocation = $('.table-locations')
+
+    const strHtml = locations.map(location => {
+        const { name, lan, lag, id } = location
+            `
+    <tr>
+    <td>${name}</td>
+    <td>
+    <button class="btn-go" value="${lan, lag}" onclick="onPanTo(value.lan, value.lag)">Go</button>
+    <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
+    </td>
+    </th>
+    `
+    })
+    elLocation.innerHTML = strHtml.join('')
+}
+
+// function onGoTtLocation(ev) {
+//     console.log('ev', ev)
+//     const location = getLocationById(ev.id)
+//     const { lan, lag } = location
+//     goToLocation(location)
+//     renderLocation()
+// }
+
+function onDelLocation(ev) {
+    const location = getLocationById(ev.id)
+    const { name } = location
+    onDelLocation(name)
+    renderLocation()
 }
