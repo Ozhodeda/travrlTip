@@ -34,7 +34,7 @@ function getLocs() {
     }
 
 }
-function createPlace( name, lat, lng, zoom = 15) {
+function createPlace(name, lat, lng, zoom = 15) {
     return {
         id:id++,
         lat,
