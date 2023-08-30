@@ -1,3 +1,5 @@
+import { api } from "./secret.js"
+
 export const mapService = {
     initMap,
     addMarker,
@@ -35,7 +37,7 @@ function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng)
     gMap.panTo(laLatLng)
 }
-import { api } from "./secret"
+
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
