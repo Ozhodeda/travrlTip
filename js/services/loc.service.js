@@ -35,7 +35,6 @@ function createPlace(lat, lng, name, zoom = 15) {
         zoom
     }
 }
-addPlace(3, 58, 59, 'ramle', 15)
 function addPlace(id, lat, lng, name, zoom) {
     const loc = createPlace(id, lat, lng, name, zoom)
     locs.unshift(loc)
