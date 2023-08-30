@@ -35,13 +35,12 @@ function panTo(lat, lng) {
     var laLatLng = new google.maps.LatLng(lat, lng)
     gMap.panTo(laLatLng)
 }
-
+import { api } from "./secret"
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyDLf9UT2g5a18ty7KRa8y0wIPl4trwbhjk' //DONE: Enter your API Key
     var elGoogleApi = document.createElement('script')
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${api.API_KEY_map}`
     elGoogleApi.async = true
     document.body.append(elGoogleApi)
 
