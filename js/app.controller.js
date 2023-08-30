@@ -20,6 +20,7 @@ function onInit() {
 
         })
         .catch(() => console.log('Error: cannot init map'))
+        renderLocation()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
