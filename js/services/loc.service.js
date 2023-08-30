@@ -48,7 +48,7 @@ function getLocById(locId) {            // Read
 }
 function removeLoc(locId) {  ///delate
     const loc = locs.find(loc => locId === locId.id)
-    locs.splice(locId, 1)
+    locs.splice(loc, 1)
     savePlaceToStorage()
     return Promise.resolve(locs)
 }
