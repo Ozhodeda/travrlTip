@@ -9,7 +9,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
-// window.onDelLoc = onDelLoc
+window.onDelLoc = onDelLoc
 
 
 function onInit() {
@@ -81,8 +81,8 @@ function renderLocation(locations) {
         <tr>
         <td>${name}</td>
         <td>
-        <button class="btn-go" onclick="onPanTo(${lat},${ lng})">Go</button>
-        <button class="btn-delete" value="${id}" onclick="onDelLoc(this)">Del</button>
+        <button class="btn-go" onclick="onPanTo(${lat},${lng})">Go</button>
+        <button class="btn-delete" onclick="onDelLoc(${id})">Del</button>
         </td>
         </tr>
         `
@@ -91,8 +91,9 @@ function renderLocation(locations) {
     elLocation.innerHTML = strHtml.join('')
 }
 
-function onDelLoc(ev) {
-    const locId = ev.id
+function onDelLoc(locId) {
+
+    console.log('locId', locId)
     locService.removeLoc(locId)
-    renderLocation()
+        .then(renderLocation)
 }
