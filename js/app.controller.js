@@ -30,9 +30,9 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function onAddMarker(lat, lng ) {
     console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    mapService.addMarker({ lat, lng })
 }
 
 function onGetLocs() {
@@ -60,6 +60,7 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('lat, lng', lat, lng)
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
+    onAddMarker(lat, lng )
 }
 
 function renderLocation(locations) {
