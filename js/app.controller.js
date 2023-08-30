@@ -1,3 +1,6 @@
+
+
+
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
@@ -17,6 +20,7 @@ function onInit() {
 
         })
         .catch(() => console.log('Error: cannot init map'))
+        renderLocation()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -51,11 +55,42 @@ function onGetUserPos() {
             console.log('err!!!', err)
         })
 }
-function onPanTo() {
+function onPanTo(lan = 35.6895, lag = 139.6917) {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(lan, lag)
 }
 
-function renderLocation(){
-    
+function renderLocation() {
+    const locations = locService.getLocs
+
+    const elLocation = $('.table-locations')
+
+    const strHtml = locations.map(location => {
+        const { name, lan, lag, id } = location
+            `
+    <tr>
+    <td>${name}</td>
+    <td>
+    <button class="btn-go" value="${lan, lag}" onclick="onPanTo(value.lan, value.lag)">Go</button>
+    <button class="btn-delete" value="${id}" onclick="onDelLocation(this)">Del</button>
+    </td>
+    </th>
+    `
+    })
+    elLocation.innerHTML = strHtml.join('')
+}
+
+// function onGoTtLocation(ev) {
+//     console.log('ev', ev)
+//     const location = getLocationById(ev.id)
+//     const { lan, lag } = location
+//     goToLocation(location)
+//     renderLocation()
+// }
+
+function onDelLocation(ev) {
+    const location = getLocationById(ev.id)
+    const { name } = location
+    onDelLocation(name)
+    renderLocation()
 }
