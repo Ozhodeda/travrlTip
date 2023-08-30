@@ -40,13 +40,12 @@ function initMap() {
                 )
                 infoWindow.open(gMap);
             });
-        }
-        
-        )}
+        })
+}
 
 
 function addMarker(loc) {
-    var marker = new google.maps.Marker({
+    return new google.maps.Marker({
         position: loc,
         map: gMap,
         title: 'Hello World!'
