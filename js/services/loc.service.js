@@ -3,9 +3,9 @@ import { utilService } from "./util.service.js"
 
 const STORAGE_PLACE_KEY = 'placesDB'
 
-const locsCache = utilService.load(STORAGE_PLACE_KEY) || []
+let locs
 
-var id=101
+var id = 101
 
 export const locService = {
     getLocs,
@@ -16,29 +16,33 @@ export const locService = {
     getLocation
 }
 
-const locs = [
-    { id: 2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-    { id: 1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
-]
+
 
 function getLocs() {
-    if (locsCache) {
+    locs = utilService.load(STORAGE_PLACE_KEY)
+    if (locs) {
+
         console.log('from cache')
         console.log('locs:', locs)
-        return Promise.resolve(locsCache)
-    } else {
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(locs)
-                console.log('locs:', locs)
-            }, 2000)
-        })
+        return Promise.resolve(locs)
     }
+    locs = [
+        { id: 2, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
+        { id: 1, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
+    ]
+    return new Promise((resolve, reject) => {
+        console.log('from API')
+        setTimeout(() => {
+            resolve(locs)
+            console.log('locs:', locs)
+        }, 2000)
+    })
 }
 
-function createPlace(lat, lng, name, zoom = 15) {
+
+function createPlace(lat, lng, name, zoom = 5) {
     return {
-        id:id++,
+        id: id++,
         lat,
         lng,
         name,
@@ -72,6 +76,6 @@ function savePlaceToStorage() {
     utilService.save(STORAGE_PLACE_KEY, locs)
 }
 
-function getLocation(){
+function getLocation() {
     return locs
 }

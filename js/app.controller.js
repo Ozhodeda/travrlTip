@@ -1,7 +1,7 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-export const appController = { 
+export const appController = {
     renderLocation
 }
 
@@ -14,13 +14,14 @@ window.onDelLoc = onDelLoc
 window.onSearch = onSearch
 
 function onInit() {
+    locService.getLocs()
+        .then(renderLocation)
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
         })
         .catch(() => console.log('Error: cannot init map'))
-    locService.getLocs()
-        .then(renderLocation)
+
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -31,7 +32,7 @@ function getPosition() {
     })
 }
 
-function onAddMarker(lat, lng ) {
+function onAddMarker(lat, lng) {
     console.log('Adding a marker')
     mapService.addMarker({ lat, lng })
 }
@@ -61,8 +62,8 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
     console.log('lat, lng', lat, lng)
     console.log('Panning the Map')
     mapService.panTo(lat, lng)
-    onAddMarker(lat, lng )
-    
+    onAddMarker(lat, lng)
+
     const locs = locService.getLocation()
 
     renderLocation(locs)
@@ -97,16 +98,16 @@ function onDelLoc(locId) {
         .then(renderLocation)
 }
 
-function onSearch(){
+function onSearch() {
     const elInput = document.getElementById('search-input')
     const input = elInput.value
     console.log('input', input)
 
     mapService.getAddress(input)
-    .then(onPanTo)
-    
+        .then(onPanTo)
 
 
-  
+
+
 
 }
