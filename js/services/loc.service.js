@@ -15,15 +15,11 @@ export const locService = {
     removeLoc,
     getLocation
 }
-
-
-
 function getLocs() {
-    locs = utilService.load(STORAGE_PLACE_KEY)
+    locs = utilService.load(STORAGE_PLACE_KEY)|| []
     if (locs) {
 
         console.log('from cache')
-        console.log('locs:', locs)
         return Promise.resolve(locs)
     }
     locs = [
@@ -64,10 +60,10 @@ function getLocById(locId) {            // Read
 }
 
 function removeLoc(locId) {  ///delate
-    locId = locs.find(loc => locId === loc.id)
+    const idx = locs.findIndex(loc => loc.id === locId)
     console.log('locId', locId)
-    locs.splice(locId, 1)
-    console.log('locs', locs)
+    locs.splice(idx, 1)
+    console.log('locs', idx)
     savePlaceToStorage()
     return Promise.resolve(locs)
 }
