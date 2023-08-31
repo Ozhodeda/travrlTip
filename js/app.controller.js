@@ -65,7 +65,6 @@ function onPanTo(lat = 35.6895, lng = 139.6917) {
     onAddMarker(lat, lng)
 
     const locs = locService.getLocation()
-
     renderLocation(locs)
 }
 
